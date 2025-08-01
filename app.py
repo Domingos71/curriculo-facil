@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, make_response
 import pdfkit
 import os
 import base64
+import shutil
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -11,8 +12,8 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
 
-# Caminho do wkhtmltopdf (ajustado para Render e local)
-wkhtmltopdf_path = os.getenv('WKHTMLTOPDF_PATH', r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
+# Detecta automaticamente o caminho do wkhtmltopdf (Linux ou Windows)
+wkhtmltopdf_path = shutil.which('wkhtmltopdf') or r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
 config = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path)
 
 @app.route('/')
@@ -29,7 +30,7 @@ def gerar():
         foto_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         foto.save(foto_path)
 
-        # Converter imagem para base64
+        # Converte a imagem para base64
         with open(foto_path, 'rb') as img_file:
             mime_type = 'image/jpeg' if filename.lower().endswith(('.jpg', '.jpeg')) else 'image/png'
             base64_img = base64.b64encode(img_file.read()).decode('utf-8')
@@ -37,12 +38,13 @@ def gerar():
     else:
         dados['foto_base64'] = None
 
-    # Gerar HTML com os dados
+    # Renderiza o HTML com os dados do formulário
     rendered = render_template('resume_template.html', **dados)
 
-    # Gerar PDF
+    # Gera o PDF
     pdf = pdfkit.from_string(rendered, False, configuration=config)
 
+    # Envia o PDF como resposta
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'inline; filename=curriculo.pdf'
