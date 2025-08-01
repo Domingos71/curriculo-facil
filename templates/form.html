@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Currículo Fácil</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <title>Currículo Fácil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <h1>Currículo Fácil</h1>
-    <form action="/gerar" method="POST" enctype="multipart/form-data">
-      <!-- seus campos aqui -->
-      <button type="submit">Gerar Currículo PDF</button>
-    </form>
-  </div>
+    <div class="container">
+        <h1>Preencha seus dados</h1>
+        <form action="/gerar" method="post" enctype="multipart/form-data">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" required>
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" name="endereco">
+
+            <label for="formacao">Formação Acadêmica:</label>
+            <textarea id="formacao" name="formacao" rows="3"></textarea>
+
+            <label for="experiencia">Experiência Profissional:</label>
+            <textarea id="experiencia" name="experiencia" rows="4"></textarea>
+
+            <label for="habilidades">Habilidades:</label>
+            <textarea id="habilidades" name="habilidades" rows="3"></textarea>
+
+            <label for="foto">Foto:</label>
+            <input type="file" id="foto" name="foto" accept="image/*">
+
+            <button type="submit">Gerar Currículo PDF</button>
+        </form>
+    </div>
 </body>
 </html>
