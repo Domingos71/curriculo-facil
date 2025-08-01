@@ -1,17 +1,18 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
     padding: 40px;
 }
 
-.form-container {
-    max-width: 600px;
-    margin: auto;
+.container {
     background: white;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -19,29 +20,27 @@ h1 {
     color: #333;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
-
 input, textarea {
-    margin-bottom: 15px;
-    padding: 12px;
-    font-size: 16px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: 15px;
 }
 
 button {
-    padding: 12px;
-    background-color: #28a745;
+    width: 100%;
+    background-color: #4CAF50;
     color: white;
-    font-size: 18px;
     border: none;
-    border-radius: 5px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #45a049;
 }

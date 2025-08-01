@@ -2,21 +2,24 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Currículo de {{ nome }}</title>
+    <title>Currículo de {{ dados['nome'] }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 40px;
+            padding: 40px;
         }
-        .curriculo {
-            border: 1px solid #ccc;
-            padding: 25px;
+        .container {
+            border: 2px solid #555;
+            padding: 20px;
             border-radius: 8px;
+            position: relative;
         }
         .foto {
-            float: right;
-            width: 120px;
-            height: 120px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
             border-radius: 8px;
         }
@@ -24,43 +27,51 @@
             margin-top: 0;
         }
         h2 {
-            color: #444;
             margin-bottom: 5px;
+            color: #333;
         }
         p {
-            margin-top: 0;
+            margin: 0 0 10px 0;
         }
         .whatsapp {
-            margin-top: 40px;
+            margin-top: 30px;
             text-align: center;
+        }
+        .whatsapp a {
+            text-decoration: none;
+            color: #0c8;
         }
     </style>
 </head>
 <body>
-    <div class="curriculo">
-        {% if foto_base64 %}
-            <img src="{{ foto_base64 }}" class="foto">
+    <div class="container">
+        {% if dados['foto_base64'] %}
+            <img src="{{ dados['foto_base64'] }}" class="foto">
         {% endif %}
-        <h1>{{ nome }}</h1>
+
+        <h1>{{ dados['nome'] }}</h1>
+
         <h2>Informações de Contato</h2>
-        <p><strong>Email:</strong> {{ email }}</p>
-        <p><strong>Telefone:</strong> {{ telefone }}</p>
+        <p><strong>Email:</strong> {{ dados['email'] }}</p>
+        <p><strong>Telefone:</strong> {{ dados['telefone'] }}</p>
 
         <h2>Resumo Profissional</h2>
-        <p>{{ resumo }}</p>
+        <p>{{ dados['resumo'] }}</p>
 
         <h2>Experiência</h2>
-        <p>{{ experiencia }}</p>
+        <p>{{ dados['experiencia'] }}</p>
 
         <h2>Formação Acadêmica</h2>
-        <p>{{ formacao }}</p>
+        <p>{{ dados['formacao'] }}</p>
 
         <h2>Habilidades</h2>
-        <p>{{ habilidades }}</p>
+        <p>{{ dados['habilidades'] }}</p>
 
         <div class="whatsapp">
             <p>Compartilhe seu currículo:</p>
-            <a href="https://wa.me/?text=Confira%20meu%20curr%C3%ADculo:%20{{ request.url_root }}" target="_blank">📲 Enviar pelo WhatsApp</a>
+            <a href="https://wa.me/?text=Meu currículo: https://curriculo-facil.onrender.com" target="_blank">
+                Enviar pelo WhatsApp
+            </a>
         </div>
     </div>
 </body>
