@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Currículo de {{ dados['nome'] }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .foto {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .linha {
+            border-bottom: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        .secao {
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ dados['nome'] }}</h1>
+
+    {% if foto_url %}
+        <img src="{{ foto_url }}" class="foto">
+    {% endif %}
+
+    <p><strong>Email:</strong> {{ dados['email'] }}<br>
+    <strong>Telefone:</strong> {{ dados['telefone'] }}</p>
+
+    <div class="linha"></div>
+
+    <div class="secao">
+        <h2>Resumo Profissional</h2>
+        <p>{{ dados['resumo'] }}</p>
+    </div>
+
+    <div class="secao">
+        <h2>Experiência Profissional</h2>
+        <p>{{ dados['experiencia'] }}</p>
+    </div>
+
+    <div class="secao">
+        <h2>Formação Acadêmica</h2>
+        <p>{{ dados['formacao'] }}</p>
+    </div>
+</body>
+</html>
