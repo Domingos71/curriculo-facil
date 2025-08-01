@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Currículo Fácil</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Google AdSense (no <head>, recomendado pelo Google) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7245547082291691"
+        crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
@@ -20,6 +23,19 @@
             <input type="file" name="foto" accept="image/*">
             <button type="submit">Gerar Currículo</button>
         </form>
+
+        <!-- Bloco do anúncio (você pode duplicar isso em outras partes do site) -->
+        <div style="margin-top: 30px;">
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-7245547082291691"
+                data-ad-slot="1234567890"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </div>
 </body>
 </html>
