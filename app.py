@@ -5,46 +5,47 @@ import base64
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'uploads'
 
-# Caminho para wkhtmltopdf
-config = pdfkit.configuration(
-    wkhtmltopdf=r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-)
+# Criar a pasta de uploads se não existir
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
 
-UPLOAD_FOLDER = 'static/uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# Caminho do wkhtmltopdf (ajustado para Render e local)
+wkhtmltopdf_path = os.getenv('WKHTMLTOPDF_PATH', r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe')
+config = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path)
 
 @app.route('/')
-def formulario():
+def form():
     return render_template('form.html')
 
 @app.route('/gerar', methods=['POST'])
-def gerar_pdf():
+def gerar():
     dados = request.form.to_dict()
     foto = request.files.get('foto')
-    foto_base64 = None
 
-    if foto and foto.filename != '':
+    if foto:
         filename = secure_filename(foto.filename)
         foto_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         foto.save(foto_path)
 
-        # Converte a imagem para base64
+        # Converter imagem para base64
         with open(foto_path, 'rb') as img_file:
-            encoded = base64.b64encode(img_file.read()).decode('utf-8')
-            mime_type = 'image/jpeg' if filename.lower().endswith(('jpg', 'jpeg')) else 'image/png'
-            foto_base64 = f"data:{mime_type};base64,{encoded}"
+            mime_type = 'image/jpeg' if filename.lower().endswith(('.jpg', '.jpeg')) else 'image/png'
+            base64_img = base64.b64encode(img_file.read()).decode('utf-8')
+            dados['foto_base64'] = f"data:{mime_type};base64,{base64_img}"
+    else:
+        dados['foto_base64'] = None
 
-        os.remove(foto_path)
+    # Gerar HTML com os dados
+    rendered = render_template('resume_template.html', **dados)
 
-    # Gera o HTML com a imagem embutida
-    rendered = render_template('resume_template.html', dados=dados, foto_url=foto_base64)
+    # Gerar PDF
     pdf = pdfkit.from_string(rendered, False, configuration=config)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'attachment; filename=curriculo.pdf'
+    response.headers['Content-Disposition'] = 'inline; filename=curriculo.pdf'
     return response
 
 if __name__ == '__main__':

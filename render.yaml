@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: curriculo-facil
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    region: oregon
+    plan: free
+    runtime: python
+    pythonVersion: 3.11
+    envVars:
+      - key: WKHTMLTOPDF_PATH
+        value: /usr/bin/wkhtmltopdf
