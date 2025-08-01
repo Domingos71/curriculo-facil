@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Currículo de {{ nome }}</title>
@@ -7,59 +7,61 @@
         body {
             font-family: Arial, sans-serif;
             margin: 40px;
-            padding: 20px;
-            border: 2px solid #444;
-            border-radius: 10px;
-            background-color: #f9f9f9;
         }
-        h1, h2 {
-            color: #333;
-        }
-        img {
-            max-width: 150px;
-            border-radius: 10px;
+        .curriculo {
+            border: 1px solid #ccc;
+            padding: 25px;
+            border-radius: 8px;
         }
         .foto {
-            text-align: right;
+            float: right;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
         }
-        .section {
-            margin-bottom: 20px;
+        h1 {
+            margin-top: 0;
+        }
+        h2 {
+            color: #444;
+            margin-bottom: 5px;
+        }
+        p {
+            margin-top: 0;
+        }
+        .whatsapp {
+            margin-top: 40px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="foto">
+    <div class="curriculo">
         {% if foto_base64 %}
-            <img src="{{ foto_base64 }}" alt="Foto do candidato">
+            <img src="{{ foto_base64 }}" class="foto">
         {% endif %}
-    </div>
-
-    <h1>{{ nome }}</h1>
-
-    <div class="section">
+        <h1>{{ nome }}</h1>
         <h2>Informações de Contato</h2>
         <p><strong>Email:</strong> {{ email }}</p>
         <p><strong>Telefone:</strong> {{ telefone }}</p>
-    </div>
 
-    <div class="section">
         <h2>Resumo Profissional</h2>
         <p>{{ resumo }}</p>
-    </div>
 
-    <div class="section">
         <h2>Experiência</h2>
         <p>{{ experiencia }}</p>
-    </div>
 
-    <div class="section">
         <h2>Formação Acadêmica</h2>
         <p>{{ formacao }}</p>
-    </div>
 
-    <div class="section">
         <h2>Habilidades</h2>
         <p>{{ habilidades }}</p>
+
+        <div class="whatsapp">
+            <p>Compartilhe seu currículo:</p>
+            <a href="https://wa.me/?text=Confira%20meu%20curr%C3%ADculo:%20{{ request.url_root }}" target="_blank">📲 Enviar pelo WhatsApp</a>
+        </div>
     </div>
 </body>
 </html>
