@@ -1,37 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Currículo Fácil</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <title>Currículo Fácil</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Gerador de Currículo</h1>
-        <form action="/gerar" method="POST" enctype="multipart/form-data">
-            <label>Nome:</label>
-            <input type="text" name="nome" required>
-
-            <label>Email:</label>
-            <input type="email" name="email" required>
-
-            <label>Telefone:</label>
-            <input type="text" name="telefone" required>
-
-            <label>Resumo Profissional:</label>
-            <textarea name="resumo" rows="4" required></textarea>
-
-            <label>Experiência Profissional:</label>
-            <textarea name="experiencia" rows="4" required></textarea>
-
-            <label>Formação Acadêmica:</label>
-            <textarea name="formacao" rows="3" required></textarea>
-
-            <label>Foto (opcional):</label>
-            <input type="file" name="foto" accept="image/*">
-
-            <button type="submit">Gerar Currículo PDF</button>
-        </form>
-    </div>
+  <div class="container">
+    <h1>Currículo Fácil</h1>
+    <form action="/gerar" method="POST" enctype="multipart/form-data">
+      <!-- seus campos aqui -->
+      <button type="submit">Gerar Currículo PDF</button>
+    </form>
+  </div>
 </body>
 </html>
