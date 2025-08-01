@@ -1,60 +1,65 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Currículo de {{ dados['nome'] }}</title>
+    <title>Currículo de {{ nome }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 40px;
-        }
-        .foto {
-            width: 150px;
-            height: auto;
-            margin-bottom: 20px;
+            padding: 20px;
+            border: 2px solid #444;
             border-radius: 10px;
+            background-color: #f9f9f9;
         }
         h1, h2 {
-            color: #2c3e50;
+            color: #333;
         }
-        .linha {
-            border-bottom: 1px solid #ccc;
-            margin: 20px 0;
+        img {
+            max-width: 150px;
+            border-radius: 10px;
         }
-        .secao {
+        .foto {
+            text-align: right;
+        }
+        .section {
             margin-bottom: 20px;
-        }
-        p {
-            font-size: 14px;
-            line-height: 1.6;
         }
     </style>
 </head>
 <body>
-    <h1>{{ dados['nome'] }}</h1>
+    <div class="foto">
+        {% if foto_base64 %}
+            <img src="{{ foto_base64 }}" alt="Foto do candidato">
+        {% endif %}
+    </div>
 
-    {% if foto_url %}
-        <img src="{{ foto_url }}" class="foto">
-    {% endif %}
+    <h1>{{ nome }}</h1>
 
-    <p><strong>Email:</strong> {{ dados['email'] }}<br>
-    <strong>Telefone:</strong> {{ dados['telefone'] }}</p>
+    <div class="section">
+        <h2>Informações de Contato</h2>
+        <p><strong>Email:</strong> {{ email }}</p>
+        <p><strong>Telefone:</strong> {{ telefone }}</p>
+    </div>
 
-    <div class="linha"></div>
-
-    <div class="secao">
+    <div class="section">
         <h2>Resumo Profissional</h2>
-        <p>{{ dados['resumo'] }}</p>
+        <p>{{ resumo }}</p>
     </div>
 
-    <div class="secao">
-        <h2>Experiência Profissional</h2>
-        <p>{{ dados['experiencia'] }}</p>
+    <div class="section">
+        <h2>Experiência</h2>
+        <p>{{ experiencia }}</p>
     </div>
 
-    <div class="secao">
+    <div class="section">
         <h2>Formação Acadêmica</h2>
-        <p>{{ dados['formacao'] }}</p>
+        <p>{{ formacao }}</p>
+    </div>
+
+    <div class="section">
+        <h2>Habilidades</h2>
+        <p>{{ habilidades }}</p>
     </div>
 </body>
 </html>
